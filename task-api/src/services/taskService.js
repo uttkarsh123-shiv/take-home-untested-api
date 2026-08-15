@@ -64,6 +64,10 @@ const completeTask = (id) => {
   const task = findById(id);
   if (!task) return null;
 
+  if(task.status === 'done') {
+    throw new Error('Task is already completed');
+  }
+
   const updated = {
     ...task,
     priority: 'medium',
