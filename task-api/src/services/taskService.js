@@ -64,6 +64,7 @@ const completeTask = (id) => {
   const task = findById(id);
   if (!task) return null;
 
+  // don't let someone complete an already completed task
   if(task.status === 'done') {
     throw new Error('Task is already completed');
   }
@@ -75,6 +76,16 @@ const completeTask = (id) => {
     completedAt: new Date().toISOString(),
   };
 
+  const index = tasks.findIndex((t) => t.id === id);
+  tasks[index] = updated;
+  return updated;
+};
+
+const assignTask = (id, assignee) => {
+  const task = findById(id);
+  if (!task) return null;
+
+  const updated = { ...task, assignee };
   const index = tasks.findIndex((t) => t.id === id);
   tasks[index] = updated;
   return updated;
@@ -94,5 +105,6 @@ module.exports = {
   update,
   remove,
   completeTask,
+  assignTask,
   _reset,
 };
