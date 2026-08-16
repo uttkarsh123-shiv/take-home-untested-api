@@ -5,6 +5,8 @@ const app = express();
 
 app.use(express.json());
 
+// added this so Render knows the app is up and running
+// also gives a simple URL to verify the deployment is live
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
